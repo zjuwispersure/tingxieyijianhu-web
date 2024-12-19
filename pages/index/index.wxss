@@ -1,0 +1,122 @@
+/**index.wxss**/
+
+.page {
+  padding: 32rpx;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+}
+
+/* 用户面板 */
+.user-panel {
+  margin-bottom: 32rpx;
+}
+
+.avatar {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+  background-color: #f7f7f7;
+}
+
+.weui-media-box__title {
+  font-size: 36rpx;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+}
+
+.child-grade {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+/* 快速开始面板 */
+.quick-start-panel {
+  margin-bottom: 32rpx;
+}
+
+.quick-start-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32rpx 0;
+}
+
+.start-icon {
+  width: 128rpx;
+  height: 128rpx;
+  margin-bottom: 32rpx;
+}
+
+.weui-btn {
+  width: 60%;
+  font-size: 32rpx;
+  font-weight: 500;
+  border-radius: 12rpx;
+}
+
+/* 最近记录面板 */
+.weui-panel__hd {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.weui-media-box {
+  padding: 32rpx;
+}
+
+.weui-media-box__title {
+  font-size: 30rpx;
+  margin-bottom: 16rpx;
+}
+
+.weui-media-box__info {
+  margin-top: 16rpx;
+}
+
+.weui-media-box__info__meta {
+  font-size: 28rpx;
+}
+
+.accuracy-text {
+  font-weight: 500;
+}
+
+.accuracy-text.excellent {
+  color: #07c160;
+}
+
+.accuracy-text.good {
+  color: #10aeff;
+}
+
+.accuracy-text.poor {
+  color: #fa5151;
+}
+
+/* 加载更多 */
+.weui-loadmore {
+  margin: 32rpx auto;
+}
+
+.weui-loadmore_line {
+  margin-top: 48rpx;
+  margin-bottom: 48rpx;
+}
+
+.weui-loadmore__tips {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 动画效果 */
+.weui-media-box_text {
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s;
+}
+
+.weui-media-box_text:active {
+  background-color: #f2f2f2;
+}

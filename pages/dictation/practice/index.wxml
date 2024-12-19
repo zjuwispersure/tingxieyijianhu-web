@@ -1,0 +1,70 @@
+<!--pages/dictation/practice/index.wxml-->
+<view class="page">
+  <view class="weui-panel">
+    <view class="weui-panel__bd">
+      <!-- 进度显示 -->
+      <view class="progress-area">
+        <view class="progress-text">第 {{currentWordIndex + 1}} 个词语，共 {{words.length}} 个</view>
+        <view class="progress-bar">
+          <progress 
+            percent="{{(currentWordIndex + 1) / words.length * 100}}" 
+            stroke-width="4" 
+            activeColor="#07c160"
+            backgroundColor="#eee"
+            active
+            active-mode="forwards"
+          />
+        </view>
+      </view>
+
+      <!-- 播放区域 -->
+      <view class="player-area">
+        <view class="player-content {{isPlaying ? 'playing' : ''}}">
+          <!-- 播放图标 -->
+          <view class="play-icon-wrapper" bindtap="replayWord">
+            <image 
+              class="play-icon" 
+              src="/assets/icons/{{isPlaying ? 'playing' : 'play'}}.png" 
+              mode="aspectFit"
+            />
+            <!-- 声波动画 -->
+            <view class="sound-waves" wx:if="{{isPlaying}}">
+              <view class="wave"></view>
+              <view class="wave"></view>
+              <view class="wave"></view>
+            </view>
+          </view>
+
+          <!-- 播放状态 -->
+          <view class="play-status">
+            <block wx:if="{{isPlaying}}">
+              <view class="status-text">正在播放...</view>
+            </block>
+            <block wx:else>
+              <view class="status-text">点击喇叭重新播放</view>
+            </block>
+          </view>
+        </view>
+      </view>
+
+      <!-- 播放设置信息 -->
+      <view class="settings-info">
+        <view class="setting-item">
+          <image class="setting-icon" src="/assets/icons/repeat.png" mode="aspectFit" />
+          <text>重复{{config.repeatTimes}}次</text>
+        </view>
+        <view class="setting-item">
+          <image class="setting-icon" src="/assets/icons/timer.png" mode="aspectFit" />
+          <text>间隔{{config.interval/1000}}秒</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提示信息 -->
+  <view class="weui-footer tips-footer">
+    <view class="weui-footer__tips">
+      听写完成后，将自动进入结果记录页面
+    </view>
+  </view>
+</view>

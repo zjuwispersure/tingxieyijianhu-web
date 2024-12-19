@@ -1,0 +1,86 @@
+<!--pages/dictation/result/index.wxml-->
+<view class="page">
+  <!-- 结果统计 -->
+  <view class="weui-panel result-panel">
+    <view class="weui-panel__bd">
+      <view class="result-summary">
+        <view class="summary-item">
+          <text class="summary-label">总词数</text>
+          <text class="summary-value">{{words.length}}</text>
+        </view>
+        <view class="divider"></view>
+        <view class="summary-item">
+          <text class="summary-label">正确</text>
+          <text class="summary-value correct">{{statistics.correct || 0}}</text>
+        </view>
+        <view class="divider"></view>
+        <view class="summary-item">
+          <text class="summary-label">正确率</text>
+          <text class="summary-value {{(statistics.accuracy >= 90 ? 'excellent' : (statistics.accuracy >= 60 ? 'good' : 'poor'))}}">
+            {{statistics.accuracy || 0}}%
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 词语列表 -->
+  <view class="weui-panel">
+    <view class="weui-panel__hd">听写结果</view>
+    <view class="weui-panel__bd">
+      <block wx:if="{{!loading}}">
+        <view class="word-list">
+          <view class="word-item" wx:for="{{words}}" wx:key="index">
+            <view class="word-info">
+              <text class="word-text">{{item.text}}</text>
+              <text class="word-pinyin">{{item.pinyin}}</text>
+            </view>
+            <view class="word-actions">
+              <view class="action-group">
+                <button 
+                  class="weui-btn mini-btn {{results[index] === true ? 'correct-btn' : ''}}" 
+                  bindtap="onResultChange" 
+                  data-index="{{index}}" 
+                  data-value="{{true}}"
+                >
+                  <image class="btn-icon" src="/assets/icons/correct.png" mode="aspectFit" />
+                  正确
+                </button>
+                <button 
+                  class="weui-btn mini-btn {{results[index] === false ? 'wrong-btn' : ''}}" 
+                  bindtap="onResultChange" 
+                  data-index="{{index}}" 
+                  data-value="{{false}}"
+                >
+                  <image class="btn-icon" src="/assets/icons/wrong.png" mode="aspectFit" />
+                  错误
+                </button>
+              </view>
+              <view class="play-btn" bindtap="playWord" data-index="{{index}}">
+                <image class="btn-icon" src="/assets/icons/play.png" mode="aspectFit" />
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view class="weui-loadmore" wx:else>
+        <view class="weui-loading"></view>
+        <text class="weui-loadmore__tips">正在加载</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="bottom-btn-area">
+    <button class="weui-btn weui-btn_primary" bindtap="handleSubmit">
+      提交结果
+    </button>
+  </view>
+
+  <!-- 提示信息 -->
+  <view class="weui-footer tips-footer">
+    <view class="weui-footer__tips">
+      提交后可在首页查看历史记录
+    </view>
+  </view>
+</view>

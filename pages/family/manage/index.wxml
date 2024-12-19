@@ -1,0 +1,77 @@
+<!--pages/family/manage/index.wxml-->
+<view class="page">
+  <block wx:if="{{!loading}}">
+    <!-- 家庭信息 -->
+    <view class="weui-panel">
+      <view class="weui-panel__hd">
+        <view class="panel-header">
+          <text>家庭信息</text>
+          <text class="member-count">{{familyInfo.members.length}}个成员</text>
+        </view>
+      </view>
+      <view class="weui-panel__bd">
+        <view class="family-info">
+          <view class="family-name">{{familyInfo.name}}</view>
+          <view class="family-id">
+            <text>家庭ID：{{familyInfo.id}}</text>
+            <view class="copy-btn" bindtap="copyFamilyId">
+              <image class="icon-copy" src="/assets/icons/copy.png" mode="aspectFit" />
+              <text>复制</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 成员列表 -->
+    <view class="weui-panel">
+      <view class="weui-panel__hd">成员列表</view>
+      <view class="weui-panel__bd">
+        <view class="member-list">
+          <view class="member-item" wx:for="{{familyInfo.members}}" wx:key="id">
+            <view class="member-info">
+              <image class="member-avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+              <view class="member-detail">
+                <view class="member-name">
+                  {{item.nickname}}
+                  <text class="role-tag {{item.role === 'owner' ? 'owner' : 'member'}}">
+                    {{item.role === 'owner' ? '家长' : '成员'}}
+                  </text>
+                </view>
+                <view class="join-time">加入时间：{{item.joinTime}}</view>
+              </view>
+            </view>
+            <view class="member-actions" wx:if="{{familyInfo.currentUserRole === 'owner' && item.id !== familyInfo.currentUserId}}">
+              <button 
+                class="weui-btn weui-btn_mini weui-btn_warn"
+                bindtap="removeMember"
+                data-member-id="{{item.id}}"
+              >移除</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-area" wx:if="{{familyInfo.currentUserRole === 'owner'}}">
+      <button class="weui-btn weui-btn_primary" bindtap="inviteMember">
+        <image class="btn-icon" src="/assets/icons/invite.png" mode="aspectFit" />
+        邀请成员
+      </button>
+    </view>
+
+    <!-- 提示信息 -->
+    <view class="weui-footer tips-footer">
+      <view class="weui-footer__tips">
+        提示：家长可以邀请其他成员加入，方便管理多个孩子的听写练习
+      </view>
+    </view>
+  </block>
+
+  <!-- 加载状态 -->
+  <view class="weui-loadmore" wx:else>
+    <view class="weui-loading"></view>
+    <text class="weui-loadmore__tips">正在加载</text>
+  </view>
+</view>
