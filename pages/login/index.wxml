@@ -13,8 +13,9 @@
       <view class="weui-btn-area">
         <button 
           class="weui-btn weui-btn_primary" 
-          bindtap="handleLogin"
-          open-type="getUserInfo"
+          bindtap="getUserProfile"
+          loading="{{loading}}"
+          disabled="{{loading}}"
         >
           <image class="wechat-icon" src="/assets/icons/wechat.png" mode="aspectFit"></image>
           微信一键登录
@@ -22,13 +23,12 @@
       </view>
     </view>
 
-    <view class="weui-msg__tips-area">
+    <view class="weui-msg__tips-area" style="margin-bottom: 20px;">
       <view class="weui-msg__tips">登录即表示同意《用户协议》和《隐私政策》</view>
     </view>
 
-    <view class="weui-msg__extra-area">
+    <view class="weui-msg__extra-area" style="position: fixed; bottom: 20px; width: 100%; text-align: center;">
       <view class="weui-footer">
-        <view class="weui-footer__text">Copyright © 2024 小学语文听写</view>
       </view>
     </view>
   </view>

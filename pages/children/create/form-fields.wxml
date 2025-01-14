@@ -1,0 +1,71 @@
+<!-- 地区选择 -->
+<view class="weui-cell weui-cell_select">
+  <view class="weui-cell__hd">
+    <label class="weui-label required">所在地区</label>
+  </view>
+  <view class="weui-cell__bd">
+    <picker mode="region" 
+            bindchange="onRegionChange" 
+            value="{{[form.province, form.city]}}">
+      <view class="weui-select {{!form.province ? 'picker-placeholder' : ''}}">
+        <view class="region-value">
+          <block wx:if="{{form.province && form.city}}">
+            <text class="region-text">{{form.province}}</text>
+            <text class="region-text">{{form.city}}</text>
+          </block>
+          <text wx:else>请选择学校所在地区</text>
+        </view>
+      </view>
+    </picker>
+  </view>
+</view>
+
+<!-- 年级选择 -->
+<view class="weui-cell weui-cell_select">
+  <view class="weui-cell__hd">
+    <label class="weui-label required">年级</label>
+  </view>
+  <view class="weui-cell__bd">
+    <picker mode="selector" 
+            range="{{grades}}" 
+            value="{{form.grade - 1}}"
+            bindchange="onGradeChange">
+      <view class="weui-select">{{form.grade}}年级</view>
+    </picker>
+  </view>
+</view>
+
+<!-- 学期选择 -->
+<view class="weui-cell weui-cell_select">
+  <view class="weui-cell__hd">
+    <label class="weui-label required">学期</label>
+  </view>
+  <view class="weui-cell__bd">
+    <picker mode="selector" 
+            range="{{semesters}}" 
+            range-key="name"
+            value="{{form.semester - 1}}"
+            bindchange="onSemesterChange">
+      <view class="weui-select">{{semesters[form.semester - 1].name}}</view>
+    </picker>
+  </view>
+</view>
+
+<!-- 教材版本选择 -->
+<view class="weui-cell weui-cell_select">
+  <view class="weui-cell__hd">
+    <label class="weui-label required">教材版本</label>
+  </view>
+  <view class="weui-cell__bd">
+    <picker 
+      mode="selector"
+      bindchange="handleVersionChange" 
+      value="{{selectedVersionIndex}}" 
+      range="{{versions}}"
+    >
+      <view class="weui-select">
+        {{form.textbookVersion}}
+      </view>
+    </picker>
+  </view>
+</view> 

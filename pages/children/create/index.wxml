@@ -3,103 +3,48 @@
   <view class="weui-form">
     <view class="weui-form__text-area">
       <view class="weui-form__title">{{id ? '修改孩子信息' : '添加孩子'}}</view>
-      <view class="weui-form__desc">请填写孩子的基本信息，方便安排听写练习</view>
+      <view class="weui-form__desc">{{id ? '修改孩子的基本信息' : '请填写孩子的基本信息，方便安排听写练习'}}</view>
     </view>
 
-    <view class="weui-form__control-area">
-      <view class="weui-cells__group weui-cells__group_form">
-        <view class="weui-cells weui-cells_form">
-          <!-- 昵称 -->
-          <view class="weui-cell weui-cell_active">
-            <view class="weui-cell__hd">
-              <label class="weui-label">昵称</label>
-            </view>
-            <view class="weui-cell__bd">
-              <input class="weui-input" 
-                    placeholder="请输入孩子的昵称" 
-                    value="{{form.nickname}}"
-                    data-field="nickname"
-                    bindinput="onInput"
-              />
-            </view>
+    <view class="weui-cells__group">
+      <view class="weui-cells">
+        <!-- 昵称 -->
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <label class="weui-label required">昵称</label>
           </view>
-
-          <!-- 省市选择 -->
-          <view class="weui-cell weui-cell_active weui-cell_select">
-            <view class="weui-cell__hd">
-              <label class="weui-label">所在地区</label>
-            </view>
-            <view class="weui-cell__bd">
-              <picker mode="region" 
-                      bindchange="onRegionChange" 
-                      value="{{[form.province, form.city]}}">
-                <view class="weui-select">
-                  {{form.province && form.city ? form.province + ' ' + form.city : '请选择学校所在地区'}}
-                </view>
-              </picker>
-            </view>
-          </view>
-
-          <!-- 年级选择 -->
-          <view class="weui-cell weui-cell_active weui-cell_select">
-            <view class="weui-cell__hd">
-              <label class="weui-label">年级</label>
-            </view>
-            <view class="weui-cell__bd">
-              <picker mode="selector" 
-                      range="{{grades}}" 
-                      value="{{form.grade - 1}}"
-                      bindchange="onGradeChange">
-                <view class="weui-select">{{form.grade}}年级</view>
-              </picker>
-            </view>
-          </view>
-
-          <!-- 学期选择 -->
-          <view class="weui-cell weui-cell_active weui-cell_select">
-            <view class="weui-cell__hd">
-              <label class="weui-label">学期</label>
-            </view>
-            <view class="weui-cell__bd">
-              <picker mode="selector" 
-                      range="{{semesters}}" 
-                      range-key="name"
-                      value="{{form.semester - 1}}"
-                      bindchange="onSemesterChange">
-                <view class="weui-select">{{semesters[form.semester - 1].name}}</view>
-              </picker>
-            </view>
-          </view>
-
-          <!-- 教材版本选择 -->
-          <view class="weui-cell weui-cell_active weui-cell_select">
-            <view class="weui-cell__hd">
-              <label class="weui-label">教材版本</label>
-            </view>
-            <view class="weui-cell__bd">
-              <picker mode="selector" 
-                      range="{{textbooks}}" 
-                      range-key="name"
-                      value="{{selectedTextbookIndex}}"
-                      bindchange="onTextbookChange">
-                <view class="weui-select">{{textbooks[selectedTextbookIndex].name}}</view>
-              </picker>
-            </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" 
+                  placeholder="请输入孩子的昵称" 
+                  placeholder-class="picker-placeholder"
+                  value="{{form.nickname}}"
+                  data-field="nickname"
+                  bindinput="onInput"
+                  disabled="{{!!id}}"
+            />
           </view>
         </view>
+
+        <!-- 共享的表单字段 -->
+        <include src="./form-fields.wxml" />
       </view>
     </view>
 
-    <view class="weui-form__opr-area">
-      <button class="weui-btn weui-btn_primary" bindtap="handleSubmit">
+    <!-- 按钮区域 -->
+    <view class="button-group">
+      <button class="weui-btn weui-btn_default" 
+              bindtap="handleCancel"
+              disabled="{{loading}}"
+      >
+        取消
+      </button>
+      <button class="weui-btn weui-btn_primary" 
+              bindtap="handleSubmit"
+              loading="{{loading}}"
+              disabled="{{loading}}"
+      >
         {{id ? '保存修改' : '创建'}}
       </button>
-    </view>
-
-    <view class="weui-form__tips-area">
-      <view class="weui-form__tips">
-        提示：请确保信息准确，以便系统推荐合适的听写内容
-      </view>
     </view>
   </view>
 </view>

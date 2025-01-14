@@ -4,44 +4,68 @@ import { API } from './config/api';
 
 App({
   onLaunch() {
-    // 检查登录状态
-    this.checkLoginStatus();
+    // 从本地存储加载选中的孩子
+    const selectedChild = wx.getStorageSync('selectedChild');
+    if (selectedChild) {
+      this.globalData.selectedChild = selectedChild;
+    }
+
+    // 登录
+    wx.login({
+      success: async (res) => {
+        if (res.status === 'success') {
+          try {
+            const result = await request.post(API.USER.LOGIN, {
+              code: res.code
+            });
+
+            if (result && result.data) {
+              this.globalData.userInfo = result.data;
+              
+              // 登录成功后获取孩子列表
+              try {
+                const childrenResult = await request.get(API.CHILD.LIST);
+                if (childrenResult.status === 'success' && childrenResult.data) {
+                  // 转换教材版本格式
+                  const children = childrenResult.data.map(child => ({
+                    ...child,
+                    textbookVersion: child.textbook_version === 'rj' ? '人教版' : '北师大版'
+                  }));
+                  
+                  // 如果本地没有选中的孩子，默认选中第一个
+                  if (!this.globalData.selectedChild && children.length > 0) {
+                    const firstChild = children[0];
+                    this.globalData.selectedChild = firstChild;
+                    wx.setStorageSync('selectedChild', firstChild);
+                  }
+                  
+                  // 更新本地存储
+                  wx.setStorageSync('children', children);
+                }
+              } catch (error) {
+                console.error('获取孩子列表失败:', error);
+              }
+              
+              if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(result.data)
+              }
+            }
+          } catch (error) {
+            console.error('登录请求失败:', error);
+          }
+        }
+      }
+    });
   },
 
-  async checkLoginStatus() {
-    try {
-      const token = wx.getStorageSync('token');
-      
-      if (!token) {
-        // 如果没有token，跳转到登录页
-        wx.reLaunch({ url: '/pages/login/index' });
-        return;
-      }
-
-      // 验证token是否有效
-      const userInfo = await request.get(API.USER.GET_USER_INFO);
-      this.globalData.userInfo = userInfo;
-      
-      // 获取用户的孩子列表
-      const childrenResult = await request.get(API.CHILD.LIST);
-      
-      if (!childrenResult.children || childrenResult.children.length === 0) {
-        // 如果没有孩子，跳转到创建孩子页面
-        wx.reLaunch({ url: '/pages/children/create/index' });
-      } else {
-        // 如果有孩子，设置第一个孩子为选中状态
-        this.globalData.selectedChild = childrenResult.children[0];
-      }
-      
-    } catch (error) {
-      console.error('登录状态检查失败:', error);
-      // token无效，跳转到登录页
-      wx.reLaunch({ url: '/pages/login/index' });
-    }
+  // 添加一个更新选中孩子的方法
+  updateSelectedChild(child) {
+    this.globalData.selectedChild = child;
+    wx.setStorageSync('selectedChild', child);
   },
 
   globalData: {
     userInfo: null,
-    selectedChild: null  // 当前选中的孩子
+    selectedChild: null
   }
-})
+});

@@ -1,108 +1,24 @@
 <!--pages/dictation/select/index.wxml-->
 <view class="page">
-  <view class="weui-panel child-panel">
-    <view class="weui-panel__bd">
-      <view class="weui-media-box weui-media-box_text">
-        <view class="child-info">
-          <text class="child-name">{{selectedChild.nickname}}</text>
-          <text class="child-grade">{{selectedChild.grade}}年级{{selectedChild.semester == 1 ? '上' : '下'}}学期</text>
-        </view>
-      </view>
-    </view>
-  </view>
-
   <view class="weui-panel">
-    <view class="weui-panel__hd">听写模式</view>
+    <view class="weui-panel__hd">选择听写模式</view>
     <view class="weui-panel__bd">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_select">
+      <view class="weui-cells">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="handleUnitDictation">
           <view class="weui-cell__bd">
-            <picker 
-              mode="selector" 
-              range="{{modes}}" 
-              range-key="name"
-              value="{{selectedModeIndex}}"
-              bindchange="onModeChange"
-            >
-              <view class="weui-select">{{modes[selectedModeIndex].name}}</view>
-            </picker>
+            <view class="mode-title">按单元听写</view>
+            <view class="mode-desc">按照课本单元顺序进行听写练习</view>
           </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="handleSmartDictation">
+          <view class="weui-cell__bd">
+            <view class="mode-title">智能听写</view>
+            <view class="mode-desc">根据学习情况智能推荐词语进行听写</view>
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
       </view>
     </view>
-  </view>
-
-  <view class="weui-panel">
-    <view class="weui-panel__hd">听写设置</view>
-    <view class="weui-panel__bd">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_select">
-          <view class="weui-cell__hd">
-            <view class="weui-label">词语数量</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker 
-              mode="selector" 
-              range="{{wordCounts}}"
-              value="{{selectedWordCountIndex}}"
-              bindchange="onConfigChange"
-              data-field="wordCount"
-            >
-              <view class="weui-select">{{wordCounts[selectedWordCountIndex]}}个</view>
-            </picker>
-          </view>
-        </view>
-
-        <view class="weui-cell weui-cell_select">
-          <view class="weui-cell__hd">
-            <view class="weui-label">重复次数</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker 
-              mode="selector" 
-              range="{{repeatTimesList}}"
-              value="{{selectedRepeatTimesIndex}}"
-              bindchange="onConfigChange"
-              data-field="repeatTimes"
-            >
-              <view class="weui-select">{{repeatTimesList[selectedRepeatTimesIndex]}}次</view>
-            </picker>
-          </view>
-        </view>
-
-        <view class="weui-cell weui-cell_select">
-          <view class="weui-cell__hd">
-            <view class="weui-label">间隔时间</view>
-          </view>
-          <view class="weui-cell__bd">
-            <picker 
-              mode="selector" 
-              range="{{intervalList}}"
-              value="{{selectedIntervalIndex}}"
-              bindchange="onConfigChange"
-              data-field="interval"
-            >
-              <view class="weui-select">{{intervalList[selectedIntervalIndex]}}秒</view>
-            </picker>
-          </view>
-        </view>
-
-        <view class="weui-cell weui-cell_switch">
-          <view class="weui-cell__bd">优先错题</view>
-          <view class="weui-cell__ft">
-            <switch 
-              class="weui-switch"
-              checked="{{config.priorityError}}"
-              bindchange="onConfigChange"
-              data-field="priorityError"
-            />
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
-
-  <view class="weui-btn-area">
-    <button class="weui-btn weui-btn_primary" bindtap="handleStart">开始听写</button>
   </view>
 </view>

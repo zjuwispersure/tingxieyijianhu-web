@@ -1,0 +1,197 @@
+<view class="page" bindtap="hideHelp">
+  <view class="weui-cells__group">
+    <view class="weui-cells">
+      <!-- 听写模式 -->
+      <view class="weui-cell mode-cell">
+        <view class="weui-cell__hd">
+          <view class="label-row">
+            <label class="weui-label">听写模式</label>
+            <view class="help-wrapper">
+              <view class="help-icon" catchtap="showHelp" data-index="0">?</view>
+              <view class="help-tip {{activeTip === 0 ? 'show' : ''}}">
+                {{tips[0]}}
+                <view class="help-tip-arrow"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-cell__bd">
+          <view class="mode-options">
+            <view class="mode-option {{config.dictationMode === 'unit' ? 'selected' : ''}}" 
+                  bindtap="onModeChange" 
+                  data-mode="unit">
+              <view class="radio-wrapper">
+                <view class="radio-inner"></view>
+              </view>
+              <text>单元听写</text>
+            </view>
+            <view class="mode-option {{config.dictationMode === 'smart' ? 'selected' : ''}}" 
+                  bindtap="onModeChange" 
+                  data-mode="smart">
+              <view class="radio-wrapper">
+                <view class="radio-inner"></view>
+              </view>
+              <text>智能听写</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 听写数量 -->
+      <view class="weui-cell config-cell">
+        <view class="config-label">
+          <view class="label-row">
+            <text>听写数量</text>
+            <view class="help-wrapper">
+              <view class="help-icon" catchtap="showHelp" data-index="1">?</view>
+              <view class="help-tip {{activeTip === 1 ? 'show' : ''}}">
+                {{tips[1]}}
+                <view class="help-tip-arrow"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="config-value">
+          <input 
+            class="weui-input"
+            type="number"
+            value="{{config.wordsPerDictation}}"
+            bindinput="onWordsPerDictationInput"
+            placeholder="1-100"
+          />
+          <text class="unit">个</text>
+        </view>
+      </view>
+
+      <!-- 复习间隔 -->
+      <view class="weui-cell config-cell">
+        <view class="config-label">
+          <view class="label-row">
+            <text>复习间隔</text>
+            <view class="help-wrapper">
+              <view class="help-icon" catchtap="showHelp" data-index="2">?</view>
+              <view class="help-tip {{activeTip === 2 ? 'show' : ''}}">
+                {{tips[2]}}
+                <view class="help-tip-arrow"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="config-value">
+          <input 
+            class="weui-input"
+            type="number"
+            value="{{config.reviewDays}}"
+            bindinput="onReviewDaysInput"
+            placeholder="1-30"
+          />
+          <text class="unit">天</text>
+        </view>
+      </view>
+
+      <!-- 听写间隔 -->
+      <view class="weui-cell config-cell">
+        <view class="config-label">
+          <view class="label-row">
+            <text>听写间隔</text>
+            <view class="help-wrapper">
+              <view class="help-icon" catchtap="showHelp" data-index="3">?</view>
+              <view class="help-tip {{activeTip === 3 ? 'show' : ''}}">
+                {{tips[3]}}
+                <view class="help-tip-arrow"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="config-value">
+          <input 
+            class="weui-input"
+            type="number"
+            value="{{config.dictationInterval}}"
+            bindinput="onDictationIntervalInput"
+            placeholder="1-30"
+          />
+          <text class="unit">秒</text>
+        </view>
+      </view>
+
+      <!-- 听写比例 -->
+      <view class="weui-cell config-cell">
+        <view class="config-label">
+          <view class="label-row">
+            <text>听写比例</text>
+            <view class="help-wrapper">
+              <view class="help-icon" catchtap="showHelp" data-index="4">?</view>
+              <view class="help-tip {{activeTip === 4 ? 'show' : ''}}">
+                {{tips[4]}}
+                <view class="help-tip-arrow"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="config-value">
+          <input 
+            class="weui-input"
+            type="number"
+            value="{{config.dictationRatio}}"
+            bindinput="onDictationRatioInput"
+            placeholder="1-100"
+          />
+          <text class="unit">%</text>
+        </view>
+      </view>
+
+      <!-- 只听写错词 -->
+      <view class="weui-cell config-cell">
+        <view class="config-label">
+          <view class="label-row">
+            <text>只听写错词</text>
+            <view class="help-wrapper">
+              <view class="help-icon" catchtap="showHelp" data-index="5">?</view>
+              <view class="help-tip {{activeTip === 5 ? 'show' : ''}}">
+                {{tips[5]}}
+                <view class="help-tip-arrow"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="config-value">
+          <switch checked="{{config.wrongWordsOnly}}" bindchange="onWrongWordsChange" />
+        </view>
+      </view>
+
+      <!-- 播放次数 -->
+      <view class="weui-cell config-cell">
+        <view class="config-label">
+          <view class="label-row">
+            <text>播放次数</text>
+            <view class="help-wrapper">
+              <view class="help-icon" catchtap="showHelp" data-index="6">?</view>
+              <view class="help-tip {{activeTip === 6 ? 'show' : ''}}">
+                {{tips[6]}}
+                <view class="help-tip-arrow"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="config-value">
+          <input 
+            class="weui-input"
+            type="number"
+            value="{{config.playCount}}"
+            bindinput="onPlayCountInput"
+            placeholder="1-5"
+          />
+          <text class="unit">次</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="bottom-button">
+    <button class="weui-btn weui-btn_primary" bindtap="handleSave">
+      保存设置
+    </button>
+  </view>
+</view> 

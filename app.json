@@ -4,10 +4,7 @@
     "pages/login/index",
     "pages/children/list/index",
     "pages/children/create/index",
-    "pages/dictation/select/index",
-    "pages/dictation/practice/index",
-    "pages/dictation/result/index",
-    "pages/family/manage/index"
+    "pages/dictation/config/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -23,7 +20,7 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页",
+        "text": "听写",
         "iconPath": "/assets/tabbar/home.png",
         "selectedIconPath": "/assets/tabbar/home-active.png"
       },
@@ -32,18 +29,9 @@
         "text": "孩子",
         "iconPath": "/assets/tabbar/child.png",
         "selectedIconPath": "/assets/tabbar/child-active.png"
-      },
-      {
-        "pagePath": "pages/family/manage/index",
-        "text": "家庭",
-        "iconPath": "/assets/tabbar/family.png",
-        "selectedIconPath": "/assets/tabbar/family-active.png"
       }
     ]
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json",
-  "useExtendedLib": {
-    "weui": true
-  }
+  "sitemapLocation": "sitemap.json"
 }

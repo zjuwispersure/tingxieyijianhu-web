@@ -16,12 +16,27 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
+    },
+    "urlCheck": false,
+    "checkSiteMap": false,
+    "useCompilerPlugins": false
+  },
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "单元列表页面",
+          "pathName": "pages/dictation/unit-list/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
     }
   },
-  "condition": {},
   "editorSetting": {
     "tabIndent": "auto",
     "tabSize": 2
   },
-  "appid": "wxcf9fda1389e33320"
+  "appid": "wx3e6bb70a5abcc7e6"
 }

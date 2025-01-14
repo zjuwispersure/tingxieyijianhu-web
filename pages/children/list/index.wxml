@@ -1,61 +1,61 @@
 <!--pages/children/list/index.wxml-->
 <view class="page">
-  <view class="weui-panel">
-    <view class="weui-panel__bd">
-      <!-- 添加孩子按钮 -->
-      <view class="weui-media-box weui-media-box_text add-child" bindtap="navigateToCreate">
-        <view class="add-child-content">
-          <view class="add-icon-wrapper">
-            <image class="add-icon" src="/assets/icons/add.png" mode="aspectFit"></image>
-          </view>
-          <text class="add-text">添加孩子</text>
-        </view>
-      </view>
-
-      <!-- 孩子列表 -->
-      <block wx:if="{{children.length > 0}}">
-        <view class="weui-media-box weui-media-box_appmsg child-item" 
-              wx:for="{{children}}" 
-              wx:key="id"
-              bindtap="selectChild"
-              data-id="{{item.id}}">
-          <view class="weui-media-box__hd">
-            <view class="avatar-wrapper {{item.id === selectedChild.id ? 'selected' : ''}}">
-              <text class="avatar-text">{{item.nickname[0]}}</text>
-            </view>
-          </view>
-          <view class="weui-media-box__bd">
-            <view class="weui-media-box__title">{{item.nickname}}</view>
-            <view class="weui-media-box__desc">
-              {{item.grade}}年级{{item.semester == 1 ? '上' : '下'}}学期
-              <text class="textbook-version">{{item.textbookVersion === 'rj' ? '人教版' : '北师大版'}}</text>
-            </view>
-          </view>
-          <view class="weui-media-box__ft">
-            <view class="weui-btn weui-btn_mini weui-btn_default" 
-                  catchtap="editChild" 
-                  data-id="{{item.id}}">
-              编辑
-            </view>
+  <view class="weui-cells__group" wx:if="{{children.length > 0}}">
+    <view class="weui-cells">
+      <view class="weui-cell" 
+            wx:for="{{children}}" 
+            wx:key="id"
+            bindtap="handleSelectChild"
+            data-id="{{item.id}}"
+      >
+        <!-- 单选框 -->
+        <view class="weui-cell__hd">
+          <view class="radio-wrapper {{item.id === selectedChildId ? 'selected' : ''}}">
+            <view class="radio-inner"></view>
           </view>
         </view>
-      </block>
 
-      <!-- 空状态 -->
-      <view class="weui-loadmore weui-loadmore_line" wx:elif="{{!loading}}">
-        <text class="weui-loadmore__tips">暂无孩子信息，请添加</text>
-      </view>
+        <!-- 孩子信息 -->
+        <view class="weui-cell__bd">
+          <view class="child-info-wrapper">
+            <view class="child-info-main">
+              <view class="child-name">{{item.nickname}}</view>
+              <view class="child-info">
+                {{item.grade}}年级 {{item.semester === 1 ? '上' : '下'}}学期 {{item.textbookVersion}}
+                <text class="region-text" wx:if="{{item.province && item.city}}">
+                  {{item.province}} {{item.city}}
+                </text>
+              </view>
+            </view>
 
-      <!-- 加载状态 -->
-      <view class="weui-loadmore" wx:else>
-        <view class="weui-loading"></view>
-        <text class="weui-loadmore__tips">正在加载</text>
+            <!-- 编辑按钮 -->
+            <view class="edit-btn-wrapper">
+              <button 
+                class="edit-btn"
+                catchtap="handleEditChild"
+                data-id="{{item.id}}"
+              >
+                编辑
+              </button>
+            </view>
+          </view>
+        </view>
       </view>
     </view>
   </view>
 
-  <!-- 提示信息 -->
-  <view class="weui-footer tips-footer">
-    <view class="weui-footer__tips">可添加多个孩子，方便家长为不同年级的孩子安排听写</view>
+  <view class="weui-loadmore" wx:if="{{loading}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+
+  <view class="empty-state" wx:if="{{!loading && children.length === 0}}">
+    <view class="empty-text">还没有添加孩子</view>
+  </view>
+
+  <view class="bottom-button">
+    <button class="weui-btn weui-btn_primary" bindtap="handleAddChild">
+      添加孩子
+    </button>
   </view>
 </view>

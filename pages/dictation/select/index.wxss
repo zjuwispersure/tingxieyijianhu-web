@@ -33,6 +33,7 @@
   border-radius: 12rpx;
   overflow: hidden;
   margin-bottom: 32rpx;
+  background-color: #fff;
 }
 
 .weui-panel__hd {
@@ -40,10 +41,11 @@
   font-weight: 500;
   color: #333;
   padding: 24rpx 32rpx;
+  border-bottom: 1rpx solid #eee;
 }
 
 .weui-cell {
-  padding: 24rpx 32rpx;
+  padding: 32rpx;
 }
 
 .weui-label {
@@ -74,4 +76,15 @@
 
 .weui-btn_primary {
   background-color: #07c160;
+}
+
+.mode-title {
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.mode-desc {
+  font-size: 26rpx;
+  color: #999;
 }

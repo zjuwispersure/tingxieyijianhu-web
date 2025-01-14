@@ -1,5 +1,18 @@
 <!--index.wxml-->
 <view class="page">
+  <!-- 顶部区域 -->
+  <view class="header">
+    <view class="child-info" wx:if="{{selectedChild}}">
+      <text class="child-name">{{selectedChild.nickname}}</text>
+      <text class="child-grade">{{selectedChild.grade}}年级</text>
+    </view>
+    
+    <!-- 修改为文字按钮 -->
+    <button class="config-btn" bindtap="navigateToConfig">
+      听写配置
+    </button>
+  </view>
+
   <!-- 头部信息 -->
   <view class="weui-panel user-panel">
     <view class="weui-panel__bd">

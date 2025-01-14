@@ -1,150 +1,147 @@
 /* pages/children/list/index.wxss */
 
 .page {
-  padding: 32rpx;
-  background-color: #f7f7f7;
+  padding: 20rpx 0;
   min-height: 100vh;
+  box-sizing: border-box;
+  background: #f7f7f7;
 }
 
-/* 添加孩子按钮 */
-.add-child {
-  border: 2rpx dashed #ddd;
+.weui-cells__group {
+  margin: 0 20rpx;
   border-radius: 12rpx;
-  margin: 0 32rpx 32rpx;
-  background-color: #fafafa;
-  transition: all 0.3s;
+  overflow: hidden;
 }
 
-.add-child:active {
-  background-color: #f0f0f0;
+.weui-cell {
+  padding: 24rpx;
+  background: #fff;
 }
 
-.add-child-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 48rpx 0;
-}
-
-.add-icon-wrapper {
-  width: 96rpx;
-  height: 96rpx;
-  border-radius: 48rpx;
-  background-color: #f0f0f0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16rpx;
-}
-
-.add-icon {
-  width: 48rpx;
-  height: 48rpx;
-}
-
-.add-text {
-  font-size: 28rpx;
-  color: #999;
-}
-
-/* 孩子列表 */
-.child-item {
-  position: relative;
-  margin: 0 32rpx;
-  border-radius: 12rpx;
-  background-color: #fff;
-  margin-bottom: 24rpx;
-  transition: all 0.3s;
-}
-
-.child-item:active {
-  background-color: #f9f9f9;
-}
-
-.avatar-wrapper {
-  width: 88rpx;
-  height: 88rpx;
-  border-radius: 44rpx;
-  background-color: #f0f0f0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s;
-}
-
-.avatar-wrapper.selected {
-  background-color: #07c160;
-}
-
-.avatar-text {
-  font-size: 36rpx;
-  font-weight: 500;
-  color: #666;
-}
-
-.avatar-wrapper.selected .avatar-text {
-  color: #fff;
-}
-
-.weui-media-box__title {
+.child-name {
   font-size: 32rpx;
   font-weight: 500;
   color: #333;
   margin-bottom: 8rpx;
 }
 
-.weui-media-box__desc {
-  font-size: 26rpx;
+.child-info {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.empty-state {
+  padding: 60rpx 0;
+  text-align: center;
+}
+
+.empty-text {
+  font-size: 28rpx;
   color: #999;
+}
+
+.bottom-button {
+  position: fixed;
+  bottom: 40rpx;
+  left: 0;
+  right: 0;
+  padding: 0 32rpx;
+}
+
+.weui-btn {
+  margin: 0;
+}
+
+/* 单选框样式 */
+.radio-wrapper {
+  width: 40rpx;
+  height: 40rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 50%;
+  margin-right: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radio-wrapper.selected {
+  border-color: #07c160;
+}
+
+.radio-inner {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 50%;
+  background-color: #07c160;
+  opacity: 0;
+}
+
+.radio-wrapper.selected .radio-inner {
+  opacity: 1;
+}
+
+/* 孩子信息布局 */
+.child-info-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.child-info-main {
+  flex: 1;
+  min-width: 0;
+  padding-right: 32rpx;
+}
+
+/* 编辑按钮样式 */
+.edit-btn-wrapper {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.weui-cell__ft {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
 }
 
-.textbook-version {
-  margin-left: 16rpx;
-  padding: 4rpx 12rpx;
-  background-color: #f7f7f7;
-  border-radius: 8rpx;
-  font-size: 24rpx;
-}
-
-.weui-media-box__ft {
-  margin-left: 32rpx;
-}
-
-.weui-btn_mini {
-  display: inline-block;
-  padding: 8rpx 24rpx;
-  line-height: 1.8;
-  font-size: 24rpx;
-  border-radius: 8rpx;
-}
-
-/* 底部提示 */
-.tips-footer {
-  margin-top: 48rpx;
-  padding: 0 32rpx;
-}
-
-.weui-footer__tips {
-  font-size: 26rpx;
-  color: #999;
+.edit-btn {
+  margin: 0;
+  padding: 2rpx 8rpx;
+  min-width: 44rpx;
+  font-size: 20rpx;
+  line-height: 1.4;
+  background: rgba(7, 193, 96, 0.1);
+  color: #07c160;
+  border-radius: 4rpx;
   text-align: center;
 }
 
-/* 加载状态 */
-.weui-loadmore {
-  margin: 48rpx auto;
+.edit-btn::after {
+  display: none;
 }
 
-.weui-loadmore_line {
-  margin-top: 64rpx;
-  margin-bottom: 64rpx;
+.weui-cell__ft_in-access {
+  width: 12rpx;
+  height: 12rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #b2b2b2;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  margin-left: 8rpx;
 }
 
-.weui-loadmore__tips {
-  font-size: 28rpx;
+.region-text {
+  margin-left: 16rpx;
+  font-size: 24rpx;
   color: #999;
-  background-color: #f7f7f7;
-  padding: 0 32rpx;
+}
+
+.region-value {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
 }

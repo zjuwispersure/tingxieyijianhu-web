@@ -1,0 +1,33 @@
+<view class="page">
+  <!-- 统计信息 -->
+  <view class="statistics">
+    <view class="stat-item">
+      <text class="stat-label">今日听写</text>
+      <text class="stat-value">{{statistics.todayCount}}</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-label">累计听写</text>
+      <text class="stat-value">{{statistics.totalCount}}</text>
+    </view>
+  </view>
+
+  <!-- 单元列表 -->
+  <view class="unit-list">
+    <view class="unit-item" 
+          wx:for="{{units}}" 
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="handleUnitTap">
+      <view class="unit-info">
+        <view class="unit-name">{{item.name}}</view>
+        <view class="unit-progress">已完成 {{item.finishedCount}}/{{item.totalCount}}</view>
+      </view>
+      <view class="unit-arrow"></view>
+    </view>
+  </view>
+
+  <!-- 设置按钮 -->
+  <view class="settings-btn" bindtap="handleOpenSettings">
+    <image class="settings-icon" src="/assets/images/settings.png"></image>
+  </view>
+</view> 
