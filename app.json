@@ -9,7 +9,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "小学语文听写",
+    "navigationBarTitleText": "听写易监护",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
