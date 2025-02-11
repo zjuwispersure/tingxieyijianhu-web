@@ -1,0 +1,78 @@
+<view class="page">
+  <!-- 页面内容区 -->
+  <view class="page-content">
+    <form bindsubmit="handleSubmit">
+      <view class="form">
+        <!-- 昵称 -->
+        <view class="form-item">
+          <view class="label required">昵称</view>
+          <input class="input" 
+                placeholder="请输入孩子昵称" 
+                value="{{form.nickname}}"
+                data-field="nickname"
+                bindinput="onInput"
+                disabled="{{!!id}}" />
+        </view>
+
+        <!-- 地区 -->
+        <view class="form-item">
+          <view class="label required">所在地区</view>
+          <picker mode="region" 
+                  bindchange="onRegionChange"
+                  value="{{[form.province, form.city]}}">
+            <view class="picker {{form.province ? '' : 'placeholder'}}">
+              {{form.province && form.city ? form.province + ' ' + form.city : '请选择所在地区'}}
+            </view>
+          </picker>
+        </view>
+
+        <!-- 年级 -->
+        <view class="form-item">
+          <view class="label">年级</view>
+          <picker bindchange="onGradeChange" 
+                  value="{{form.grade - 1}}" 
+                  range="{{grades}}">
+            <view class="picker">{{form.grade}}年级</view>
+          </picker>
+        </view>
+
+        <!-- 学期 -->
+        <view class="form-item">
+          <view class="label">学期</view>
+          <picker bindchange="onSemesterChange" 
+                  value="{{form.semester - 1}}" 
+                  range="{{semesters}}" 
+                  range-key="name">
+            <view class="picker">{{semesters[form.semester - 1].name}}</view>
+          </picker>
+        </view>
+
+        <!-- 教材版本 -->
+        <view class="form-item">
+          <view class="label">教材版本</view>
+          <picker bindchange="onVersionChange" 
+                  value="{{form.textbookVersion === '人教版' ? 0 : 1}}" 
+                  range="{{versions}}">
+            <view class="picker">{{form.textbookVersion}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <!-- 按钮组 -->
+      <view class="btn-group">
+        <button 
+          class="cancel-btn" 
+          bindtap="handleCancel"
+          disabled="{{loading}}">
+          取消
+        </button>
+        <button 
+          class="submit-btn" 
+          form-type="submit"
+          loading="{{loading}}">
+          {{id ? '保存' : '添加'}}
+        </button>
+      </view>
+    </form>
+  </view>
+</view> 

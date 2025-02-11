@@ -1,0 +1,211 @@
+.page {
+  padding: 32rpx;
+  background: #f7f7f7;
+  min-height: 100vh;
+}
+
+.section {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24rpx;
+}
+
+/* 听写模式样式 */
+.mode-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.mode-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  background: #f8f8f8;
+  border-radius: 12rpx;
+}
+
+.mode-icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 24rpx;
+}
+
+.mode-info {
+  flex: 1;
+}
+
+.mode-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.mode-desc {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.mode-arrow {
+  width: 32rpx;
+  height: 32rpx;
+  background: url("data:image/svg+xml,%3Csvg t='1705301234123' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='4046'%3E%3Cpath d='M761.055557 532.128047c0.512619-0.992555 1.343475-1.823411 1.792447-2.848649 8.800538-18.304636 5.919204-40.703346-9.664077-55.424808L399.935923 139.743798c-19.264507-18.208305-49.631179-17.344765-67.872168 1.888778-18.208305 19.264507-17.375729 49.631179 1.888778 67.872168l316.960409 299.839269L335.199677 813.631716c-19.071845 18.399247-19.648112 48.767639-1.247144 67.872168 9.407768 9.791372 21.984142 14.688778 34.560516 14.688778 12.000108 0 24.000215-4.479398 33.311652-13.439914l350.048434-337.375729c0.672598-0.672598 0.927187-1.599785 1.599785-2.303346 0.512619-0.479935 1.056202-0.832576 1.567101-1.343475C757.759656 538.879828 759.199462 535.391265 761.055557 532.128047z' p-id='4047' fill='%23999999'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
+  background-size: contain;
+}
+
+/* 统计区域样式 */
+.stats-section {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 32rpx;
+}
+
+.stats-row:last-child {
+  margin-bottom: 0;
+}
+
+.stats-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stats-value {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.stats-value.highlight {
+  color: #07c160;
+}
+
+.stats-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 顶部孩子信息样式 */
+.header {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.child-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.child-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+  background: #f0f0f0;
+}
+
+.child-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.child-detail {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.child-detail text {
+  margin-right: 16rpx;
+}
+
+/* 今日统计样式 */
+.today-stats-section {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.today-stats {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  background: #f8f8f8;
+  border-radius: 12rpx;
+}
+
+.main-stat {
+  text-align: center;
+  padding: 0 32rpx;
+}
+
+.main-stat .stat-value {
+  font-size: 48rpx;
+  color: #07c160;
+  font-weight: bold;
+}
+
+.main-stat .stat-label {
+  font-size: 26rpx;
+  color: #666;
+  margin-top: 8rpx;
+}
+
+.stat-divider {
+  width: 2rpx;
+  height: 80rpx;
+  background: #e0e0e0;
+  margin: 0 32rpx;
+}
+
+.sub-stats {
+  flex: 1;
+}
+
+.sub-stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.sub-stat-item:last-child {
+  margin-bottom: 0;
+}
+
+.sub-stat-item .label {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.sub-stat-item .value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.stats-divider {
+  height: 1rpx;
+  background: #e0e0e0;
+  margin: 24rpx 0;
+} 

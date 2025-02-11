@@ -1,0 +1,86 @@
+<view class="page">
+  <!-- 顶部孩子信息 -->
+  <view class="header">
+    <view class="child-info">
+      <image class="child-avatar" src="/assets/images/default-avatar.png" />
+      <view class="child-name">{{selectedChild.nickname || '未选择孩子'}}</view>
+    </view>
+    <view class="child-detail" wx:if="{{selectedChild}}">
+      <text>{{selectedChild.grade}}年级</text>
+      <text>{{selectedChild.textbookVersion}}</text>
+    </view>
+  </view>
+
+  <!-- 听写模式选择区域 -->
+  <view class="section mode-section">
+    <view class="section-title">选择听写模式</view>
+    <view class="mode-list">
+      <view class="mode-item" 
+            wx:for="{{modes}}" 
+            wx:key="title"
+            data-mode="{{item.mode}}"
+            bindtap="handleModeSelect">
+        <image class="mode-icon" src="{{item.icon}}" mode="aspectFit"/>
+        <view class="mode-info">
+          <view class="mode-title">{{item.title}}</view>
+          <view class="mode-desc">{{item.desc}}</view>
+        </view>
+        <view class="mode-arrow"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 听写统计区域 -->
+  <view class="section stats-section">
+    <view class="section-title">听写统计</view>
+    
+    <!-- 今日统计 -->
+    <view class="today-stats">
+      <view class="main-stat">
+        <view class="stat-value highlight">{{statistics.daily.total}}</view>
+        <view class="stat-label">今日听写次数</view>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="sub-stats">
+        <view class="sub-stat-item">
+          <text class="label">正确率</text>
+          <text class="value">{{statistics.daily.accuracy || 0}}%</text>
+        </view>
+        <view class="sub-stat-item">
+          <text class="label">正确数</text>
+          <text class="value">{{statistics.daily.correct}}/{{statistics.daily.total}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="stats-divider"></view>
+
+    <!-- 整体统计 -->
+    <view class="stats-grid">
+      <view class="stats-row">
+        <view class="stats-item">
+          <view class="stats-value">{{statistics.overall.total}}</view>
+          <view class="stats-label">总听写次数</view>
+        </view>
+        <view class="stats-item">
+          <view class="stats-value">{{statistics.overall.week_count}}</view>
+          <view class="stats-label">本周听写</view>
+        </view>
+        <view class="stats-item">
+          <view class="stats-value">{{statistics.overall.month_count}}</view>
+          <view class="stats-label">本月听写</view>
+        </view>
+      </view>
+      <view class="stats-row">
+        <view class="stats-item">
+          <view class="stats-value highlight">{{statistics.overall.avg_score}}分</view>
+          <view class="stats-label">平均分</view>
+        </view>
+        <view class="stats-item">
+          <view class="stats-value highlight">{{statistics.overall.best_score}}分</view>
+          <view class="stats-label">最高分</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

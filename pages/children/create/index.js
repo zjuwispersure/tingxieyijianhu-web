@@ -97,94 +97,124 @@ Page({
 
   // 提交表单
   async handleSubmit() {
-    const { form, id } = this.data;
+    if (this.data.submitting) return;
     
-    // 表单验证
-    if (!form.nickname.trim()) {
-      wx.showToast({
-        title: '请输入孩子昵称',
-        icon: 'none'
-      });
-      return;
-    }
-
-    if (!form.province || !form.city) {
-      wx.showToast({
-        title: '请选择所在地区',
-        icon: 'none'
-      });
-      return;
-    }
-
     try {
-      this.setData({ loading: true });
+      // 表单验证
+      const { form } = this.data;
       
-      // 构造请求参数
-      const params = {
+      if (!form.nickname.trim()) {
+        wx.showToast({
+          title: '请输入孩子昵称',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+
+      if (!form.province || !form.city) {
+        wx.showToast({
+          title: '请选择所在地区',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+
+      // 先检查本地是否有重名
+      const children = wx.getStorageSync('children') || [];
+      const isNameExist = children.some(child => 
+        child.nickname.toLowerCase() === form.nickname.toLowerCase().trim()
+      );
+      
+      if (isNameExist) {
+        wx.showToast({
+          title: '该昵称已存在',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      
+      this.setData({ submitting: true });
+      
+      // 调用添加孩子接口
+      const result = await request.post(API.CHILD.CREATE, {
         nickname: form.nickname,
         province: form.province,
         city: form.city,
         grade: form.grade,
         semester: form.semester,
         textbook_version: form.textbookVersion === '人教版' ? 'rj' : 'bsd'
-      };
+      });
 
-      let result;
-      if (id) {
-        // 更新
-        result = await request.post(API.CHILD.UPDATE, {
-          id,
-          ...params
-        });
-      } else {
-        // 创建
-        result = await request.post(API.CHILD.CREATE, params);
+      if (result.status === 'success') {
+        // 更新全局状态
+        const newChild = {
+          ...result.data,
+          textbookVersion: result.data.textbook_version === 'rj' ? '人教版' : '北师大版'
+        };
         
-        if (result.status === 'success') {
-          // 构造完整的孩子信息
-          const newChild = {
-            id: result.data.child_id,
-            family_id: result.data.family_id,
-            nickname: form.nickname,
-            province: form.province,
-            city: form.city,
-            grade: form.grade,
-            semester: form.semester,
-            textbook_version: params.textbook_version,
-            textbookVersion: form.textbookVersion  // 保存转换后的版本名称
-          };
+        // 更新全局选中的孩子
+        getApp().updateSelectedChild(newChild);
+        
+        // 重新获取孩子列表
+        await getApp().fetchChildrenList();
 
-          // 更新本地存储的孩子列表
-          const children = wx.getStorageSync('children') || [];
-          children.push(newChild);
-          wx.setStorageSync('children', children);
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success',
+          duration: 1500
+        });
 
-          // 如果是第一个孩子，设为选中状态
-          if (children.length === 1) {
-            getApp().updateSelectedChild(newChild);
-          }
-
-          wx.showToast({
-            title: '添加成功',
-            icon: 'success'
+        // 延迟跳转，让用户看到成功提示
+        setTimeout(() => {
+          wx.switchTab({
+            url: '/pages/index/index'
           });
-
-          // 延迟跳转
-          setTimeout(() => {
-            wx.navigateBack();
-          }, 1500);
-        } else {
-          throw new Error(result.message || '添加失败');
-        }
+        }, 1500);
+      } else {
+        throw new Error(result.message || '添加失败');
       }
     } catch (error) {
-      console.error('添加失败:', error);
-      wx.showToast({
-        title: error.message || '操作失败，请重试',
-        icon: 'none'
-      });
+      console.error('添加孩子失败:', error);
+      
+      // 处理特定的错误码
+      if (error.code === 3103) {
+        wx.showToast({
+          title: '该昵称已被使用',
+          icon: 'none',
+          duration: 2000
+        });
+      } else {
+        wx.showToast({
+          title: error.message || '添加失败',
+          icon: 'none',
+          duration: 2000
+        });
+      }
     } finally {
-      this.setData({ loading: false });
+      this.setData({ submitting: false });
+    }
+  },
+
+  // 添加输入框失去焦点时的检查
+  async handleNameBlur(e) {
+    const name = e.detail.value.trim();
+    if (!name) return;
+    
+    // 检查本地存储中是否有重名
+    const children = wx.getStorageSync('children') || [];
+    const isNameExist = children.some(child => 
+      child.nickname.toLowerCase() === name.toLowerCase()
+    );
+    
+    if (isNameExist) {
+      wx.showToast({
+        title: '该昵称已存在',
+        icon: 'none',
+        duration: 2000
+      });
     }
   },
 

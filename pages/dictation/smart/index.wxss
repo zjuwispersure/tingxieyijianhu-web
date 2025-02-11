@@ -1,0 +1,25 @@
+/* pages/dictation/smart/index.wxss */
+.page {
+  padding: 32rpx;
+  background: #f7f7f7;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.developing {
+  text-align: center;
+  padding: 48rpx;
+}
+
+.developing-icon {
+  width: 240rpx;
+  height: 240rpx;
+  margin-bottom: 32rpx;
+}
+
+.developing-text {
+  font-size: 32rpx;
+  color: #999;
+}

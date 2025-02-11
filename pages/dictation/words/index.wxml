@@ -1,0 +1,80 @@
+<view class="page">
+  <view class="header">
+    <view class="title">{{lessonTitle}}</view>
+    <view class="subtitle">注:红色字词为上次错误项</view>
+    <view class="count">已选:{{totalCount}}/{{words.length}} <text class="select-all" bindtap="toggleAll">全选</text></view>
+  </view>
+
+  <view class="word-list">
+    <view class="word-item {{item.selected ? 'selected' : ''}}" 
+          wx:for="{{words}}" 
+          wx:key="id"
+          data-index="{{index}}"
+          bindtap="toggleWord">
+      <view class="pinyin">{{item.pinyin}}</view>
+      <view class="characters">
+        <text wx:for="{{item.characters}}" 
+              wx:key="*this" 
+              wx:for-item="char"
+              class="{{item.error_count > 0 ? 'wrong' : ''}}">{{char}}</text>
+      </view>
+      <view class="word-stats" wx:if="{{item.error_count > 0}}">
+        <text class="error-count">错误{{item.error_count}}次</text>
+        <text class="accuracy">正确率{{Math.round((1 - item.error_count/item.total_count) * 100)}}%</text>
+      </view>
+      <view class="check-icon"></view>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <button class="config-btn" bindtap="showConfig">听写设置</button>
+    <button class="start-btn" bindtap="handleStartDictation">开始听写</button>
+  </view>
+
+  <!-- 听写设置弹窗 -->
+  <view class="config-modal {{showConfigModal ? 'show' : ''}}" 
+        bindtap="onModalTap">
+    <view class="modal-content" catchtap="onModalContentTap">
+      <view class="modal-header">
+        <text class="modal-title">听写设置</text>
+        <text class="modal-close" bindtap="hideConfig">×</text>
+      </view>
+
+      <view class="config-section">
+        <view class="section-title">模式选择</view>
+        <view class="mode-options">
+          <view class="mode-item {{config.mode === 'order' ? 'active' : ''}}"
+                data-mode="order"
+                bindtap="updateMode">顺序</view>
+          <view class="mode-item {{config.mode === 'random' ? 'active' : ''}}"
+                data-mode="random"
+                bindtap="updateMode">随机</view>
+        </view>
+      </view>
+
+      <view class="config-section">
+        <view class="section-title">重复次数(次)</view>
+        <view class="count-options">
+          <view class="count-item {{config.repeatCount === count ? 'active' : ''}}"
+                wx:for="{{[1,2,3,4,5]}}"
+                wx:key="*this"
+                wx:for-item="count"
+                data-count="{{count}}"
+                bindtap="updateRepeatCount">{{count}}</view>
+        </view>
+      </view>
+
+      <view class="config-section">
+        <view class="section-title">读词间隔(秒)</view>
+        <view class="interval-options">
+          <view class="interval-item {{config.interval === interval ? 'active' : ''}}"
+                wx:for="{{[1,2,3,5,10]}}"
+                wx:key="*this"
+                wx:for-item="interval"
+                data-interval="{{interval}}"
+                bindtap="updateInterval">{{interval}}s</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

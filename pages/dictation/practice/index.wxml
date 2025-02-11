@@ -1,70 +1,82 @@
 <!--pages/dictation/practice/index.wxml-->
 <view class="page">
-  <view class="weui-panel">
-    <view class="weui-panel__bd">
-      <!-- 进度显示 -->
-      <view class="progress-area">
-        <view class="progress-text">第 {{currentWordIndex + 1}} 个词语，共 {{words.length}} 个</view>
-        <view class="progress-bar">
-          <progress 
-            percent="{{(currentWordIndex + 1) / words.length * 100}}" 
-            stroke-width="4" 
-            activeColor="#07c160"
-            backgroundColor="#eee"
-            active
-            active-mode="forwards"
-          />
-        </view>
-      </view>
+  <!-- 准备开始页面 -->
+  <view class="ready-page" wx:if="{{status === 'ready'}}">
+    <view class="title">听写准备</view>
+    <view class="info">
+      <view class="info-item">共{{words.length}}个词语</view>
+      <view class="info-item">模式：{{config.mode === 'order' ? '顺序' : '随机'}}</view>
+      <view class="info-item">重复：{{config.repeatCount}}次</view>
+      <view class="info-item">间隔：{{config.interval}}秒</view>
+    </view>
+    <button class="start-btn" bindtap="startDictation">开始听写</button>
+  </view>
 
-      <!-- 播放区域 -->
-      <view class="player-area">
-        <view class="player-content {{isPlaying ? 'playing' : ''}}">
-          <!-- 播放图标 -->
-          <view class="play-icon-wrapper" bindtap="replayWord">
-            <image 
-              class="play-icon" 
-              src="/assets/icons/{{isPlaying ? 'playing' : 'play'}}.png" 
-              mode="aspectFit"
-            />
-            <!-- 声波动画 -->
-            <view class="sound-waves" wx:if="{{isPlaying}}">
-              <view class="wave"></view>
-              <view class="wave"></view>
-              <view class="wave"></view>
-            </view>
-          </view>
-
-          <!-- 播放状态 -->
-          <view class="play-status">
-            <block wx:if="{{isPlaying}}">
-              <view class="status-text">正在播放...</view>
-            </block>
-            <block wx:else>
-              <view class="status-text">点击喇叭重新播放</view>
-            </block>
-          </view>
-        </view>
-      </view>
-
-      <!-- 播放设置信息 -->
-      <view class="settings-info">
-        <view class="setting-item">
-          <image class="setting-icon" src="/assets/icons/repeat.png" mode="aspectFit" />
-          <text>重复{{config.repeatTimes}}次</text>
-        </view>
-        <view class="setting-item">
-          <image class="setting-icon" src="/assets/icons/timer.png" mode="aspectFit" />
-          <text>间隔{{config.interval/1000}}秒</text>
-        </view>
-      </view>
+  <!-- 听写进行中 -->
+  <view class="practice-page" wx:elif="{{status === 'playing'}}">
+    <view class="progress-info">
+      <view class="total-words">本次听写{{words.length}}个词语</view>
+      <view class="current-progress">正在听写第{{currentIndex + 1}}个</view>
+      <view class="play-count">第{{playCount}}/{{config.repeatCount}}遍</view>
+    </view>
+    
+    <view class="play-tip">请仔细听...</view>
+    
+    <!-- 控制按钮 -->
+    <view class="control-buttons">
+      <button class="control-btn" bindtap="handlePause">
+        {{isPaused ? '继续' : '暂停'}}
+      </button>
+      <button class="control-btn" bindtap="handleReplay">
+        重新播放
+      </button>
+      <button class="control-btn" bindtap="handleExit">
+        退出
+      </button>
     </view>
   </view>
 
-  <!-- 提示信息 -->
-  <view class="weui-footer tips-footer">
-    <view class="weui-footer__tips">
-      听写完成后，将自动进入结果记录页面
+  <!-- 检查页面 -->
+  <view class="check-page" wx:elif="{{status === 'checking'}}">
+    <view class="check-header">
+      <view class="check-title">检查结果</view>
+      <view class="check-actions">
+        <view class="action-buttons">
+          <button class="action-btn correct" bindtap="handleAllCorrect">全部正确</button>
+          <button class="action-btn wrong" bindtap="handleAllWrong">全部错误</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="word-list">
+      <view class="word-item" wx:for="{{checkResults}}" wx:key="id">
+        <view class="word-info">
+          <view class="word-header">
+            <text class="word-index">{{index + 1}}.</text>
+            <text class="word-text">{{item.word}}</text>
+            <text class="word-play" bindtap="handleReplayWord" data-index="{{index}}">
+              <text class="iconfont icon-play">▶</text>
+            </text>
+          </view>
+          <text class="word-pinyin">{{item.pinyin}}</text>
+          <text class="word-hint" wx:if="{{item.hint}}">提示：{{item.hint}}</text>
+        </view>
+        <view class="check-mark {{item.result ? 'active' : ''}}"
+              bindtap="handleCheckResult"
+              data-index="{{index}}"
+              data-result="{{!item.result}}">
+          <text class="check-icon">✓</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="bottom-buttons">
+      <button class="submit-btn" 
+              bindtap="handleSubmitResults"
+              loading="{{loading}}"
+              disabled="{{loading}}">
+        提交结果
+      </button>
     </view>
   </view>
 </view>

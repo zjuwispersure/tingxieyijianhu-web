@@ -1,0 +1,50 @@
+<view class="page">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <view class="user-info {{!userInfo ? 'not-login' : ''}}">
+      <view class="avatar-wrapper">
+        <view class="avatar"></view>
+      </view>
+      <view class="info">
+        <block wx:if="{{userInfo}}">
+          <view class="nickname">{{userInfo.nickName}}</view>
+          <view class="family-name">{{userInfo.familyName || '我的家庭'}}</view>
+        </block>
+        <block wx:else>
+          <view class="login-hint">未登录</view>
+          <button class="login-btn" 
+                  bindtap="handleLogin"
+                  loading="{{loading}}">
+            微信一键登录
+          </button>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-card">
+    <view class="menu-group">
+      <view class="menu-item" 
+            wx:for="{{menuList}}" 
+            wx:key="id"
+            data-url="{{item.url}}"
+            data-need-login="{{item.needLogin}}"
+            bindtap="handleMenuClick">
+        <view class="menu-left">
+          <view class="menu-icon {{item.id}}"></view>
+          <view class="menu-title">{{item.title}}</view>
+        </view>
+        <view class="menu-right">
+          <view class="menu-badge" wx:if="{{item.badge}}">{{item.badge}}</view>
+          <view class="menu-arrow"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 版本信息 -->
+  <view class="version-info">
+    <text>当前版本 1.0.0</text>
+  </view>
+</view> 

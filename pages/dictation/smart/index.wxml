@@ -1,0 +1,7 @@
+<!--pages/dictation/smart/index.wxml-->
+<view class="page">
+  <view class="developing">
+    <image class="developing-icon" src="/assets/images/developing.png" mode="aspectFit"/>
+    <view class="developing-text">功能开发中，敬请期待...</view>
+  </view>
+</view>

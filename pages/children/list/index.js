@@ -31,7 +31,7 @@ Page({
         // 转换教材版本格式
         const children = (result.data || []).map(child => ({
           ...child,
-          textbookVersion: child.textbook_version === 'rj' ? '人教版' : '北师大版'
+          textbookVersion: child.textbook_version === 'renjiaoban' ? '人教版' : '北师大版'
         }));
         
         // 更新本地存储

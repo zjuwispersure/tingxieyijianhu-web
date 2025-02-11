@@ -1,0 +1,37 @@
+<view class="page">
+  <!-- 顶部孩子信息 -->
+  <view class="header">
+    <view class="book-info">
+      <view class="book-title">{{selectedChild.grade}}年级{{selectedChild.semester === 1 ? '上' : '下'}}册</view>
+      <view class="book-version">{{selectedChild.textbookVersion}}</view>
+    </view>
+  </view>
+
+  <statistics-panel id="statsPanel" />
+
+  <view class="units">
+    <block wx:for="{{units}}" wx:key="unit">
+      <view class="unit-header">
+        <text class="unit-title">第{{item.unit}}单元</text>
+      </view>
+      <view class="lessons">
+        <view class="lesson-item" 
+              wx:for="{{item.lessons}}" 
+              wx:key="lesson"
+              wx:for-item="lesson"
+              data-unit="{{item.unit}}"
+              data-lesson="{{lesson.lesson}}"
+              bindtap="handleLessonSelect">
+          <view class="lesson-info">
+            <view class="lesson-title">{{lesson.title}}</view>
+            <view class="lesson-page" wx:if="{{!lesson.isYuWenYuanDi}}">第{{lesson.lesson}}课</view>
+          </view>
+          <view class="lesson-arrow"></view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 加载中提示 -->
+  <view class="loading" wx:if="{{loading}}">加载中...</view>
+</view> 

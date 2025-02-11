@@ -17,9 +17,9 @@ Page({
     this.loadUnits();
   },
 
-  async loadUnits() {
+  async loadAllLessons() {
     try {
-      const result = await request.get(API.DICTATION.GET_ITEMS);
+      const result = await request.get(API.DICTATION.GET_ALL_LESSON);
       this.setData({
         units: result.items,
         loading: false
@@ -34,7 +34,7 @@ Page({
     }
   },
 
-  handleUnitSelect(e) {
+  handleLessonSelect(e) {
     const { unit } = e.currentTarget.dataset;
     wx.navigateTo({
       url: `/pages/dictation/practice/index?unitId=${unit.id}`

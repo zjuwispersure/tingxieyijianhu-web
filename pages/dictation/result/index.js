@@ -84,5 +84,24 @@ Page({
         icon: 'none'
       });
     }
+  },
+
+  async loadResultDetail() {
+    try {
+      const result = await request.get(API.DICTATION.GET_RESULT_DETAIL, {
+        lesson_id: this.data.lessonId,
+        result_id: this.data.resultId
+      });
+      
+      if (result.status === 'success') {
+        this.setData({
+          resultDetail: result.data,
+          lessonName: result.data.lesson_name,
+          // ... 其他数据
+        });
+      }
+    } catch (error) {
+      console.error('加载结果详情失败:', error);
+    }
   }
 });

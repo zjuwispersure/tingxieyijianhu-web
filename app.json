@@ -1,10 +1,21 @@
 {
+  "usingComponents": {
+    "statistics-panel": "/components/statistics-panel/index"
+  },
   "pages": [
-    "pages/index/index",
+    "pages/dictation/index/index",
     "pages/login/index",
     "pages/children/list/index",
     "pages/children/create/index",
-    "pages/dictation/config/index"
+    "pages/dictation/config/index",
+    "pages/dictation/lesson/index",
+    "pages/dictation/words/index",
+    "pages/dictation/practice/index",
+    "pages/dictation/smart/index",
+    "pages/my/index/index",
+    "pages/my/children/index/index",
+    "pages/my/children/edit/index",
+    "pages/my/family/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -19,16 +30,12 @@
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "text": "听写",
-        "iconPath": "/assets/tabbar/home.png",
-        "selectedIconPath": "/assets/tabbar/home-active.png"
+        "pagePath": "pages/dictation/index/index",
+        "text": "听写"
       },
       {
-        "pagePath": "pages/children/list/index",
-        "text": "孩子",
-        "iconPath": "/assets/tabbar/child.png",
-        "selectedIconPath": "/assets/tabbar/child-active.png"
+        "pagePath": "pages/my/index/index",
+        "text": "我的"
       }
     ]
   },

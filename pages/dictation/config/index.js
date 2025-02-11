@@ -13,7 +13,10 @@ Page({
       dictationRatio: 100,         // 听写比例
       wrongWordsOnly: false,       // 是否只听写错词
       dictationMode: 'unit',       // 听写模式：unit-单元听写，smart-智能听写
-      playCount: 2                 // 词语播放次数
+      playCount: 2,                 // 词语播放次数
+      lesson_mode: {
+        // ... 模式配置
+      }
     },
     modes: [
       { value: 'unit', name: '单元听写' },

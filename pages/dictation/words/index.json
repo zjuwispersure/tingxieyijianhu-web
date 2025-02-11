@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "statistics-panel": "/components/statistics-panel/index"
+  }
+} 

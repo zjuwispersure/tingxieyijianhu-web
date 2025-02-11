@@ -1,0 +1,12 @@
+<view class="statistics">
+  <view class="stat-item" wx:if="{{showDaily}}">
+    <view class="stat-title">今日听写</view>
+    <view class="stat-value">{{statistics.daily.total}}</view>
+    <view class="stat-detail">正确率: {{statistics.daily.accuracy || 0}}%</view>
+  </view>
+  <view class="stat-item" wx:if="{{showOverall}}">
+    <view class="stat-title">累计听写</view>
+    <view class="stat-value">{{statistics.overall.total}}</view>
+    <view class="stat-detail">正确率: {{statistics.overall.accuracy || 0}}%</view>
+  </view>
+</view> 

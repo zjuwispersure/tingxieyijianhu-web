@@ -33,26 +33,35 @@ const request = {
   },
   
   request(options) {
-    const token = wx.getStorageSync('token');
-    const requestUrl = options.url.startsWith('http') 
-      ? options.url 
-      : `${CONFIG.baseURL}${options.url}`;
-    
     return new Promise((resolve, reject) => {
+      const token = wx.getStorageSync('token');
+      const requestUrl = options.url.startsWith('http') 
+        ? options.url 
+        : `${CONFIG.baseURL}${options.url}`;
+      
       wx.request({
         ...options,
         url: requestUrl,
         timeout: options.timeout || CONFIG.timeout,
         header: {
-          'content-type': 'application/json',
-          'Authorization': token ? `Bearer ${token}` : ''
+          'Content-Type': 'application/json',
+          'Authorization': token ? `Bearer ${token}` : '',
+          ...options.header
         },
         success: (res) => {
           if (res.statusCode === 401) {
-            wx.clearStorageSync();
-            wx.redirectTo({
-              url: '/pages/login/index'
-            });
+            wx.removeStorageSync('token');
+            wx.removeStorageSync('userInfo');
+            
+            const pages = getCurrentPages();
+            const currentPage = pages[pages.length - 1];
+            
+            if (currentPage.route !== 'pages/login/index') {
+              wx.redirectTo({
+                url: '/pages/login/index'
+              });
+            }
+            
             reject(new Error('未授权，请重新登录'));
             return;
           }

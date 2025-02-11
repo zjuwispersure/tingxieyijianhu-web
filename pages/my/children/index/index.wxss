@@ -1,0 +1,104 @@
+.page {
+  padding: 32rpx;
+  background: #f7f7f7;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.add-btn {
+  margin: 0;
+  padding: 0 32rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: 28rpx;
+  color: #07c160;
+  background: #fff;
+  border: 2rpx solid #07c160;
+  border-radius: 32rpx;
+}
+
+.children-list {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+}
+
+.child-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.child-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.default-radio {
+  margin-right: 16rpx;
+  transform: scale(0.8);
+}
+
+.child-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: #e0e0e0;
+  margin-right: 16rpx;
+}
+
+.child-detail {
+  flex: 1;
+}
+
+.child-name {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 4rpx;
+}
+
+.child-grade {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.actions {
+  display: flex;
+  width: 200rpx;
+  gap: 8rpx;
+}
+
+.edit-btn, .delete-btn {
+  flex: 1;
+  margin: 0;
+  height: 48rpx;
+  line-height: 48rpx;
+  font-size: 24rpx;
+  border-radius: 24rpx;
+  text-align: center;
+  padding: 0;
+}
+
+.edit-btn {
+  color: #07c160;
+  background: rgba(7, 193, 96, 0.1);
+}
+
+.delete-btn {
+  color: #ff4d4f;
+  background: rgba(255, 77, 79, 0.1);
+} 
